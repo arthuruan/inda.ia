@@ -4,7 +4,8 @@ export type Requirement = {
 }
 
 export const contentFormatter = (requirements: Requirement[], code: string) => {
-    const prefix = "You're a code reviewer, and you've been asked to review if the code is following only the bellow requirements: "
+    const prefix =
+        "You're a code reviewer, and you've been asked to review if the code is following only the bellow requirements and do not add any other requirements beside these, also each pros and cons most be a requirement: "
     const body = requirements.map((req) => `${req.topic}: ${req.description}`).join(', ')
     const suffix = `. 
     You're going to answer in json format using the structure { \"pros\": [{"topic": string, "description": string }], \"cons\": [{"topic": string, "description": string }], "rate": number, "overview": string }.

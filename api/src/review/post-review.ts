@@ -1,13 +1,19 @@
 import { Request, Response } from 'express'
 import { openaiClient } from '../openai/openai-client'
 import { contentFormatter, Requirement } from './helpers/content-formatter'
-import { extractRepoDetails } from '../github/extract-repo-details'
-import { fetchAndConcatenateCode } from '../github/fetch-code'
+import { readFiles } from '../github/read-code'
 
 type Body = {
     requirements: Requirement[]
     githubUrl: string
     extensions: string[]
+}
+
+type ReviewResult = {
+    pros: Requirement[]
+    cons: Requirement[]
+    rate: number
+    overview: string
 }
 
 export const postReviewHandler = async (req: Request<Body>, res: Response) => {
@@ -17,9 +23,7 @@ export const postReviewHandler = async (req: Request<Body>, res: Response) => {
             return res.status(400).send('Invalid request body.')
         }
 
-        const { branch, repoName, author } = await extractRepoDetails(githubUrl)
-        const code = await fetchAndConcatenateCode(author, repoName, extensions, branch)
-        // const code = mockCode
+        const code = await readFiles(githubUrl, extensions)
 
         const openai = openaiClient()
         const completion = await openai.chat.completions.create({
@@ -27,7 +31,22 @@ export const postReviewHandler = async (req: Request<Body>, res: Response) => {
             model: 'gpt-4-turbo',
         })
 
-        res.send(JSON.parse(completion.choices[0].message.content as string))
+        let review: ReviewResult = {
+            pros: [],
+            cons: [],
+            rate: 0,
+            overview: '',
+        }
+
+        completion.choices.forEach((choice) => {
+            try {
+                review = JSON.parse(choice.message.content as string)
+            } catch (err: any) {
+                console.error(err)
+            }
+        })
+
+        res.send(review)
     } catch (err: any) {
         console.error(err)
         res.sendStatus(500).send({

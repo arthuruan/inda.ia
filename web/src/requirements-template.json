@@ -1,0 +1,56 @@
+{
+  "requirements": [
+    {
+      "topic": "Good separation of responsibility between view/view-model",
+      "description": "The view's primary role is to render the UI elements and display data to the user, It should reflect the current state of the UI based on the data it receives from the view model"
+    },
+    {
+      "topic": "Folders well separated",
+      "description": "Is easy to navigate between the folders"
+    },
+    {
+      "topic": "Code is well written and organized",
+      "description": "The code has clear and consistent naming conventions, proper indentation and formatting, it is well modularized, proper comments and documentation applied, proper error handling and readability"
+    },
+    {
+      "topic": "View Code for the UI without 3rd party libraries",
+      "description": "The view code for ui should not contain any 3rd party libraries"
+    },
+    {
+      "topic": "Create classes to handle navigation",
+      "description": "Create classes to handle navigation"
+    },
+    {
+      "topic": "Create a model for the presentation layer",
+      "description": "Ensure ViewControllers do not employ ViewModel injection for architecture consistency."
+    },
+    {
+      "topic": "ViewControllers can not have the View Model Injected",
+      "description": "ViewControllers in Swift cannot directly have their View Model injected, necessitating alternative methods for ViewModel initialization and management."
+    },
+    {
+      "topic": "ViewModels can have the services injected",
+      "description": "Incorporate service injection into ViewModels for modular and testable code architecture"
+    },
+    {
+      "topic": "Used delegation to make the communication between the ViewModel and ViewController.",
+      "description": "Utilize Combine framework for efficient and reactive communication between ViewModels and ViewControllers"
+    },
+    {
+      "topic": "Unit tests only for the ViewModels",
+      "description": "Focus unit testing efforts exclusively on ViewModels to ensure the correctness of business logic and data handling, while leaving UI tests for integration and manual testing. This approach simplifies testing and increases the reliability of core application functionalities."
+    },
+    {
+      "topic": "Unit Tests for the Network layer ",
+      "description": "Ensure robust and reliable network communication in your application by implementing essential unit tests for the network layer, validating API requests, responses, and error handling."
+    },
+    {
+      "topic": "The unit tests are well defined, clean and easy to follow",
+      "description": "Ensuring unit tests are well-defined, clean, and easy to follow enhances maintainability and readability, promoting robust and reliable code."
+    },
+    {
+      "topic": "Make sure to remove any unused boiler plate code from xcode in both project and tests",
+      "description": "Ensure to remove any unused boilerplate code from Xcode in both the project and test files to maintain a clean and efficient codebase."
+    }
+  ]
+}
