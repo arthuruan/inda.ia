@@ -1,37 +1,41 @@
-import { Requirement } from '../../App'
+import { Requirement } from '../../pages/Home'
 import './style.css'
 import lampIcon from '../../assets/lamp-light.svg'
 import starIcon from '../../assets/start-light.svg'
 import checkIcon from '../../assets/check-light.svg'
 import closeIcon from '../../assets/close-light.svg'
+import React from 'react'
 
-type Evaluation = {
+type Review = {
     pros: Requirement[]
     cons: Requirement[]
     rate: number
     overview: string
 }
 
-export const Evaluation = ({ evaluation }: { evaluation: Evaluation }) => {
+export const Review = ({ review, gitInfo }: { review: Review; gitInfo: { owner: string; repo: string } }) => {
     return (
-        <div className="evaluation-wrapper">
+        <div className="container-review">
+            <h1 className="github-info">
+                {gitInfo.owner}/{gitInfo.repo}
+            </h1>
             <div className="overview">
                 <div className="badge overview">Overview</div>
                 <div className="overview-text">
-                    <img src={lampIcon} alt="lamp-icon" />
-                    <p>{evaluation.overview}</p>
+                    <img style={{ marginTop: 2 }} src={lampIcon} alt="lamp-icon" />
+                    <p>{review.overview}</p>
                 </div>
                 <div className="overview-rate">
                     <img src={starIcon} alt="star-icon" />
-                    <p>{evaluation.rate} / 5</p>
+                    <p>{review.rate} / 5</p>
                 </div>
             </div>
             <div className="pros">
                 <div className="badge pros">Pros</div>
                 <div className="list">
-                    {evaluation.pros.map((pro, index) => (
+                    {review.pros.map((pro, index) => (
                         <div className="item">
-                            <img src={checkIcon} alt="check-icon" />
+                            <img style={{ marginTop: 2 }} src={checkIcon} alt="check-icon" />
                             <div className="text">
                                 <p className="topic">{pro.topic}</p>
                                 <p className="description">{pro.description}</p>
@@ -44,9 +48,9 @@ export const Evaluation = ({ evaluation }: { evaluation: Evaluation }) => {
             <div className="cons">
                 <div className="badge cons">Cons</div>
                 <div className="list">
-                    {evaluation.cons.map((cons, index) => (
+                    {review.cons.map((cons, index) => (
                         <div className="item">
-                            <img src={closeIcon} alt="close-icon" />
+                            <img style={{ marginTop: 2 }} src={closeIcon} alt="close-icon" />
                             <div className="text">
                                 <p className="topic">{cons.topic}</p>
                                 <p className="description">{cons.description}</p>
